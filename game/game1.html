@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>帝王躲针管(AI生成）</title>
+    <!--此代码为Deepseek生成，仅在后期加了一点修饰-->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: system-ui, sans-serif;
+        }
+        .game-wrapper {
+            text-align: center;
+        }
+        canvas {
+            display: block;
+            border: 2px solid #333;
+            background: #fff;
+            touch-action: none;
+        }
+        .controls {
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        #scoreDisplay {
+            font-size: 1.4rem;
+            font-weight: bold;
+            min-width: 80px;
+        }
+        button {
+            padding: 10px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        button:active {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="game-wrapper">
+    <canvas id="gameCanvas" width="800" height="300"></canvas>
+    <div class="controls">
+        <span id="scoreDisplay">0</span>
+        <button id="restartButton">重新开始</button>
+    </div>
+    <p style="margin-top: 8px; color: #555;">空格 / space / 点击画面 跳跃</p>
+</div>
+
+<script>
+    (function() {
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreSpan = document.getElementById('scoreDisplay');
+
+        // 固定尺寸
+        const W = 800;
+        const H = 300;
+        canvas.width = W;
+        canvas.height = H;
+
+        // 地面参数
+        const GROUND_Y = 260;
+        const DINO_BASE_Y = GROUND_Y - 44;
+
+        // 恐龙属性
+        const DINO_WIDTH = 30;
+        const DINO_HEIGHT = 44;
+        const DINO_X = 100;
+
+        // 物理
+        const GRAVITY = 0.9;
+        const JUMP_FORCE = -12.5;
+
+        // 障碍物
+        const OBS_WIDTH = 22;
+        const OBS_HEIGHT = 36;
+        const OBS_BASE_Y = GROUND_Y - OBS_HEIGHT;
+        const MIN_DIST = 350;
+        const MAX_DIST = 600;
+        const BASE_SPEED = 6.5;
+
+       const dinoImage = new Image();
+        // ！！！在这里替换成你的图片地址！！！
+        dinoImage.src = 'character1.jpg';
+        //
+        // ============ 🔴 障碍物图片（仙人掌） ============
+       const obstacleImage = new Image();
+        obstacleImage.src = 'zg.jpg'
+
+        // 游戏状态
+        let dino = {
+            x: DINO_X,
+            y: DINO_BASE_Y,
+            vy: 0,
+            width: DINO_WIDTH,
+            height: DINO_HEIGHT,
+            grounded: true
+        };
+
+        let obstacles = [];
+        let speed = BASE_SPEED;
+        let score = 0;
+        let gameOver = false;
+        let gameActive = true;
+        let nextDist = 0;
+        let frameId = null;
+
+        function randomRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        function resetGame() {
+            dino.y = DINO_BASE_Y;
+            dino.vy = 0;
+            dino.grounded = true;
+            obstacles = [];
+            speed = BASE_SPEED;
+            score = 0;
+            gameOver = false;
+            gameActive = true;
+            nextDist = randomRange(400, 550);
+            scoreSpan.textContent = '0';
+        }
+
+        function spawnObstacle() {
+            obstacles.push({
+                x: W,
+                y: OBS_BASE_Y,
+                width: OBS_WIDTH,
+                height: OBS_HEIGHT
+            });
+        }
+
+        function checkCollision(dino, obs) {
+            const margin = 4;
+            return (
+                dino.x + margin < obs.x + obs.width &&
+                dino.x + dino.width - margin > obs.x &&
+                dino.y + margin < obs.y + obs.height &&
+                dino.y + dino.height - margin > obs.y
+            );
+        }
+
+        function update() {
+            if (!gameActive || gameOver) return;
+
+            // 恐龙物理
+            dino.vy += GRAVITY;
+            dino.y += dino.vy;
+            if (dino.y >= DINO_BASE_Y) {
+                dino.y = DINO_BASE_Y;
+                dino.vy = 0;
+                dino.grounded = true;
+            } else {
+                dino.grounded = false;
+            }
+
+            // 移动障碍物
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                obstacles[i].x -= speed;
+                if (obstacles[i].x + obstacles[i].width < 0) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            // 生成障碍物
+            nextDist -= speed;
+            if (nextDist <= 0) {
+                spawnObstacle();
+                let minD = Math.max(280, MIN_DIST - Math.floor(score / 150) * 8);
+                let maxD = Math.max(420, MAX_DIST - Math.floor(score / 120) * 10);
+                if (minD > maxD) minD = maxD - 30;
+                nextDist = randomRange(minD, maxD);
+            }
+
+            // 碰撞检测
+            for (let obs of obstacles) {
+                if (checkCollision(dino, obs)) {
+                    gameOver = true;
+                    gameActive = false;
+                    break;
+                }
+            }
+
+            // 分数与速度
+            if (!gameOver) {
+                score += Math.floor(speed * 0.25);
+                if (speed < 16) speed += 0.003;
+                scoreSpan.textContent = Math.floor(score);
+            }
+        }
+
+        function jump() {
+            if (!gameActive || gameOver) {
+                if (gameOver) resetGame();
+                return;
+            }
+            if (dino.grounded) {
+                dino.vy = JUMP_FORCE;
+                dino.grounded = false;
+                dino.y += dino.vy * 0.5;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // 地面线
+            ctx.beginPath();
+            ctx.strokeStyle = '#555';
+            ctx.lineWidth = 2;
+            ctx.moveTo(0, GROUND_Y);
+            ctx.lineTo(W, GROUND_Y);
+            ctx.stroke();
+
+            if (dinoImage.complete && dinoImage.naturalWidth > 0) {
+                ctx.drawImage(dinoImage, dino.x, dino.y, dino.width, dino.height);
+            } else {
+            // 恐龙 (简单矩形表示)
+            ctx.fillStyle = '#333';
+            ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
+            // 眼睛
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(dino.x + dino.width - 8, dino.y + 6, 8, 8);
+            ctx.fillStyle = '#000';
+            ctx.fillRect(dino.x + dino.width - 4, dino.y + 8, 4, 4);
+            }
+
+            // 障碍物 (简单矩形)
+            for (let obs of obstacles) {
+            if (obstacleImage.complete && obstacleImage.naturalWidth > 0) {
+                ctx.drawImage(obstacleImage, obs.x, obs.y, obs.width, obs.height);
+            } else {
+            ctx.fillStyle = '#2e7d32';
+            ctx.fillRect(obs.x, obs.y, obs.width, obs.height);
+            }
+        }
+
+            // 游戏结束文字
+            if (gameOver) {
+                ctx.fillStyle = 'rgba(0,0,0,0.7)';
+                ctx.fillRect(0, 0, W, H);
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 28px system-ui';
+                ctx.textAlign = 'center';
+                ctx.fillText('游戏结束', W/2, H/2 - 10);
+                ctx.font = '16px system-ui';
+                ctx.fillText('点击按钮或按空格重新开始', W/2, H/2 + 30);
+            }
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            frameId = requestAnimationFrame(gameLoop);
+        }
+
+        // 事件绑定
+        window.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Space' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                jump();
+            }
+        });
+
+        canvas.addEventListener('click', (e) => {
+            e.preventDefault();
+            jump();
+        });
+
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            jump();
+        }, { passive: false });
+
+        document.getElementById('restartButton').addEventListener('click', resetGame);
+
+        // 启动
+        resetGame();
+        gameLoop();
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+body
+{
+    background-image: url(sgjpic/bj.webp);
+    background-attachment: fixed;
+    background-size:cover
+}
+
+.p0 /*大标题*/
+{
+    font-family: 'Times New Roman', Times, serif;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    font-size: 65px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.p1
+{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    font-size: 27px;
+    text-align: center;
+}
+
+.border
+{
+    border: 8px solid rgb(66, 66, 66);
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.backxu
+{
+    border: 0.5px solid rgb(66, 66, 66);
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(12px);           
+    -webkit-backdrop-filter: blur(12px)
+}
+
+.border2
+{
+    border: 5px solid rgb(84, 84, 84);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-bottom: 80px;
+}
+
+.tp1
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.tp2
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pic1
+{
+    width: 200px;
+    height: 200px;
+    border: 5px solid palevioletred;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.pic1:active
+{
+    border-color: blue;
+}
+

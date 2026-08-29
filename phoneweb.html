@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诗歌剧网页（手机端页面）</title>
+    <link rel="stylesheet" type="text/css" href="phonewebcss.css">
+</head>
+<body>
+    <p class="p0">诗歌剧の小站</p>
+    <div class="border">
+        <div class="backxu">
+            <div class="tp1">
+              <img src="sgjpic/sgj1.webp" alt="这是一张诗歌剧的图片" class="pic1" data-audio="sgjpic/1.wav" onclick="toggleAudio(this)">
+              <img src="sgjpic/sgj2.webp" alt="这是一张诗歌剧的图片" class="pic1" data-audio="sgjpic/2.wav" onclick="toggleAudio(this)">
+            </div>
+            <p class="p1">各位爱马仕大家好!</p>
+            <p class="p1">这是一个待兼唐怀瑟的小站</p>
+            <p class="p1">你可以在这里：</p>
+            <div class="tp2">
+                <div class="border2">
+                    <a href="phonemus.html"><img src="sgjpic/sgj6.webp" alt="这是一张诗歌剧的图片" class="pic1"></a>
+                    <p class="p1">欣赏关于诗歌剧的美丽音视频</p>
+                </div>
+                <div class="border2">
+                    <a href="phonetxt.html"><img src="sgjpic/sgj5.webp" alt="这是一张诗歌剧的图片" class="pic1"></a>
+                    <p class="p1">看一些诗歌剧的超怪超甜文章</p>
+                </div>
+                <p class="p1">以及......</p>
+                <div class="border2">
+                    <a href="phonemimi.html"><img src="sgjpic/sgj3.webp" alt="这是一张诗歌剧的图片" class="pic1"></a>
+                    <p class="p1">了解一些关于诗歌剧的小知识</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    var audioMap = {};
+
+    function toggleAudio(img) {
+    var src = img.getAttribute('data-audio');
+    
+    if (!audioMap[src]) {
+      audioMap[src] = new Audio(src);
+    }
+    
+    var audio = audioMap[src];
+    
+    if (audio.paused) {
+       audio.play();
+     } else {
+       audio.pause();
+     }
+    }
+
+    function loadPage(url) {
+    document.getElementById('pageFrame').src = url
+    }
+</script>
+</body>
+</html>

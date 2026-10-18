@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中学生论坛</title>
+    <link rel="stylesheet" type="text/css" href="zxs.css">
+</head>
+<body>
+    <div class="top">
+        <p class="p0" style="margin-top: 2vh;">中学生论坛</p>
+        <p class="p1" style="margin-top: -2vh;">本站用作各位中学生讨论和咨询的站点</p>
+    </div>
+    <div class="middle">
+        <a href="zxs.html">刷新</a>
+        <a href="../index.html">返回主页面</a>
+    </div>
+    <div class="bottom">
+        <div class="left">
+            <p class="p2">留言板</p>
+            <p class="p1">（目前没有开通后端服务，<br>所以无法保存留言内容，<br>自娱自乐一下可还行）</p>
+            <hr>
+            <div class="bd">
+                <form class="form1">
+                    <input type="text" class="input1" placeholder="请输入用户名" id="name">
+                    <input type="text" class="input1" placeholder="站长的密码框" id="password">
+                    <input type="text" class="input2" placeholder="请输入文本内容" id="txt">
+                </form>
+                <button class="button1" id="mybut">提交</button>
+                <hr>
+            </div>
+            <div class="output">
+                <p class="p2">留言显示区</p>
+                <hr>
+                <div id="output" class="output2">
+
+                </div> 
+            </div>
+        </div>
+        <div class="right">
+            <p class="p2">论坛</p>
+            <p class="p1">用于查看最近的新闻</p>
+            <hr>
+            <form action="https://www.baidu.com/s" method="get" target="_blank">
+                <input type="text" name="wd" placeholder="百度一下">
+                <button type="submit">搜索</button>
+            </form>
+            <hr>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("mybut").onclick = function(){
+            let name = document.getElementById("name").value.trim();
+            let txt = document.getElementById("txt").value.trim();
+            let password = document.getElementById("password").value.trim();
+
+            if (!txt){
+                alert("留言不能为空哦！");
+                return
+            }
+
+            if (txt.length > 30){
+                alert("评论不能超过十个字！");
+                return
+            }
+
+            let p = document.createElement("p");
+
+            if (name === "站长" && password === "tcga12345") {
+                alert("欢迎回来，不屈的伟哥！");
+                p.innerHTML = '<span style="color: red; fort-weight: bold;">站长</span>: ' + txt;
+            } else if (name === "站长" && password !== "tcga12345") {
+                alert("站长是专属名字，请勿冒用！");
+                return
+            } else if (name !== "站长" && password === "tcga12345") {
+                alert("站长你的名字输错啦！")
+                return
+            } else {
+                if(name){
+                    p.innerText = name + ": " + txt;
+                } else {
+                    p.innerText = "匿名： " + txt;
+                }
+            }
+            
+            document.getElementById("output").prepend(p);
+            document.getElementById("txt").value = "";
+        }
+    </script>
+</body>
+</html>

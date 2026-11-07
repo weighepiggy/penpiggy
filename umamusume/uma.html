@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>赛马娘的小站</title>
+    <link rel="stylesheet" type="text/css" href="uma.css">
+</head>
+<body>
+    <div class="top">
+        <p class="p0">一个赛马娘的小站🐴</p>
+        <p class="p1">Made By 明子之星</p>
+    </div>
+    <div class="middle">
+        <div class="middle-left">
+            <p class="p2">伪搜索栏</p>
+            <hr>
+            <form class="form">
+                <input type="search" class="sousuo" id="sou" placeholder="请输入想搜索的固定内容">
+                <div id="xianshi" style="margin-bottom: 0.3vh;" class="p3"></div>
+                <button type="button" class="sousuo" id="sub">搜索</button>
+                <p style="font-size: 2.5vw; font-weight: bold; text-align: center;">建议搜索：诗歌剧的小站<br>或 诗歌剧的小秘密</p>
+            </form>
+            <hr>
+        </div>
+        <div class="middle-right">
+            <p class="p2">伪登记册</p>
+            <hr>
+            <form class="form">
+                <input type="text" class="input" placeholder="请输入你的用户名" id="name" style="margin-bottom: 1vh;">
+                <div id="ans1" class="p3"></div>
+                <input type="password" class="input" placeholder="请输入你的密码" id="password" style="margin-bottom: 1vh;">
+                <div id="ans2" class="p3"></div>
+                <button type="button" class="input" id="mic">提交</button>
+                <div class="p3" id="ans3"></div>
+                <button type="button" id="cancel" class="input">删除账户文件</button>
+                <div class="p3" id="cal"></div>
+            </form>
+            <hr>
+            <p style="font-size: 2.5vw; font-weight: bold; text-align: center;">注：账户信息会保存在本地浏览器</p>
+        </div>
+    </div>
+    <div class="bottom">
+        <p class="p2">其他功能</p>
+        <hr>
+        <form class="form">
+            <label class="p3" style="margin-bottom: 1vh;">请选择将要跳转的页面 ↓</label>
+            <select id="choice" class="choice">
+                <option value="sgjph">诗歌剧的小站</option>
+                <option value="sgjmi">诗歌剧的小秘密</option>
+            </select>
+            <button id="smc" class="input" style="margin-bottom: 1vh;" type="button">点击跳转</button>
+        </form>
+        <hr>
+        <p class="p2">音乐播放器</p>
+        <div id="name"></div>
+        <form class="form2">
+            <button type="button" id="start" class="input2">开始播放</button>
+            <button type="button" id="stop" class="input2">结束播放</button>
+            <label class="p3" style="margin-left: 2vw;">选择<br>歌曲: </label>
+            <select class="choice2" id="music">
+                <option value="m1">马儿蹦跳传说</option>
+                <option value="m2">恋爱就是德比</option>
+                <option value="m3">木漏れ日のエール</option>
+            </select>
+            <button type="button" class="input2" id="return">重置进度</button>
+        </form>
+        <div id="tishi" class="p3"></div>
+    </div>
+</body>
+    <script src="uma.js"></script>
+</html>

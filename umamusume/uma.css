@@ -1,0 +1,143 @@
+body
+{
+    background-image: url(pictures/bj.webp);
+    background-attachment: fixed;
+    background-size:cover;
+}
+
+.top
+{
+    border: 1vw solid rgb(0, 132, 255);
+    border-radius: 1vw;
+    background-color: rgba(0, 174, 255, 0.5);
+}
+
+.middle
+{
+    display: flex;
+    flex-direction: row;
+}
+
+.middle-left
+{
+    border: 1vw solid rgb(62, 170, 0);
+    margin-top: 1vh;
+    width: 50%;
+    height: auto;
+    border-radius: 1vw;
+    background-color: rgba(172, 255, 47, 0.5);
+    margin-right: 0.2vw;
+}
+
+.middle-right
+{
+    border: 1vw solid rgb(62, 170, 0);
+    margin-top: 1vh;
+    width: 50%;
+    height: auto;
+    border-radius: 1vw;
+    background-color: rgba(172, 255, 47, 0.5);
+    margin-left: 0.2vw;
+}
+
+.bottom
+{
+    border: 1vw solid rgb(0, 132, 255);
+    border-radius: 1vw;
+    background-color: rgba(0, 174, 255, 0.5);
+    margin-top: 1vh;
+}
+
+.p0
+{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 6vw;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.p1
+{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3vw;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    color: blue;
+}
+
+.p2
+{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3vw;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.p3
+{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3vw;
+    color: blue;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+}
+
+.form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form2
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1vh;
+}
+.sousuo
+{
+    height: 3vh;
+    width: 30vw;
+    margin-bottom: 0.3vh;
+    font-size: 2.5vw;
+}
+
+.input
+{
+    width: 30vw;
+    height: 3vh;
+    margin-top: 1vh;
+    font-size: 2.5vw;
+}
+
+.input2
+{
+    width: 15vw;
+    height: 4vh;
+    margin-right: 1vw;
+    font-size: 2.5vw;
+}
+
+.choice
+{
+    width: 40vw;
+    height: 4vh;
+    margin-bottom: 1vh;
+}
+
+.choice2
+{
+    width: 30vw;
+    height: 4vh;
+    margin-left: 1vw;
+    font-size: 3vw;
+}
+
